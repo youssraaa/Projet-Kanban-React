@@ -1,10 +1,11 @@
 import { Outlet } from 'react-router-dom'
+import Navbar from './Navbar'
 
 function Layout() {
   return (
     <div>
       <header>
-        <h1 style={{ margin: '16px' }}>Kanban</h1>
+        <Navbar />
       </header>
 
       <main className="container mt-4">
