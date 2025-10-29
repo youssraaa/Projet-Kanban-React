@@ -11,6 +11,35 @@ function Board() {
   
   const [tasks, setTasks] = useState(initialTasks) 
 
+  // Supprimer une tâche
+  const handleDelete = (id) => {
+    setTasks(tasks.filter(t => t.id !== id))
+  }
+
+  // Déplacer une tâche
+  const handleMove = (id, direction) => {
+    setTasks(tasks.map(t => {
+      if (t.id !== id) return t
+
+      let newStatus = t.status
+
+      // Vers la gauche
+      if (direction === -1 && t.status === 'doing') newStatus = 'todo'
+      if (direction === -1 && t.status === 'done') newStatus = 'doing'
+
+      // Vers la droite
+      if (direction === 1 && t.status === 'todo') newStatus = 'doing'
+      if (direction === 1 && t.status === 'doing') newStatus = 'done'
+
+     return {
+       id: t.id,
+       title: t.title,
+       description: t.description,
+       status: newStatus
+      }
+    }))
+  }
+
   const todo = tasks.filter(t => t.status === 'todo')
   const doing = tasks.filter(t => t.status === 'doing')
   const done  = tasks.filter(t => t.status === 'done')
@@ -18,9 +47,9 @@ function Board() {
   return (
     <div className="container mt-4">
       <div className="row g-4">
-        <Column title="À faire" tasks={todo} />
-        <Column title="En cours" tasks={doing} />
-        <Column title="Terminé" tasks={done} />
+        <Column title="À faire" tasks={todo} onDeleteTask={handleDelete} onMoveTask={handleMove} />
+        <Column title="En cours" tasks={doing} onDeleteTask={handleDelete} onMoveTask={handleMove} />
+        <Column title="Terminé" tasks={done} onDeleteTask={handleDelete} onMoveTask={handleMove} />
       </div>
     </div>
   )
