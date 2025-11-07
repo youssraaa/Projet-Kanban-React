@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Column from './Column'
 
 const initialTasks  = [
@@ -7,9 +7,27 @@ const initialTasks  = [
     { id: 3, title: 'Installer React', description: 'Projet initialisé avec Vite.', status: 'done' },
   ]
 
-function Board() {
+function Board({ incomingTask }) {  
   
   const [tasks, setTasks] = useState(initialTasks) 
+  const lastHandledId = useRef(null) //  l’ajout 2 fois en StrictMode
+
+  // Ajouter une tâche
+  useEffect(() => {
+    if (incomingTask && incomingTask.id !== lastHandledId.current) {
+      setTasks(prev => {
+        const nextId = prev.length ? Math.max(...prev.map(t => t.id)) + 1 : 1
+        const t = {
+          id: nextId,
+          title: incomingTask.title,
+          description: incomingTask.description,
+          status: incomingTask.status || 'todo',
+        }
+        return prev.concat(t)
+      })
+      lastHandledId.current = incomingTask.id
+    }
+  }, [incomingTask])
 
   // Supprimer une tâche
   const handleDelete = (id) => {
