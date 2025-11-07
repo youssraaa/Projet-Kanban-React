@@ -6,18 +6,23 @@ function Home() {
 
   const location = useLocation()
   const navigate = useNavigate()
-  const incomingTask = location.state?.newTask
+  
+  // Tâche créée depuis /new
+  const newTask = location.state?.newTask || null
+
+  // Tâche modifiée depuis /edit/:id
+  const updatedTask = location.state?.updatedTask || null
   
   useEffect(() => {
-    if (incomingTask) {
+    if (newTask || updatedTask) {
       navigate('.', { replace: true, state: null })
     }
-  }, [incomingTask, navigate])
+  }, [newTask, updatedTask, navigate])
 
   return (
     <div>
       <h2 className="mb-4">Tableau Kanban</h2>
-      <Board incomingTask={incomingTask} />
+      <Board newTask={newTask} updatedTask={updatedTask} />
     </div>
   )
 }

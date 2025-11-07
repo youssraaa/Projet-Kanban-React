@@ -7,27 +7,45 @@ const initialTasks  = [
     { id: 3, title: 'Installer React', description: 'Projet initialisé avec Vite.', status: 'done' },
   ]
 
-function Board({ incomingTask }) {  
+function Board({ newTask, updatedTask }) {
   
   const [tasks, setTasks] = useState(initialTasks) 
-  const lastHandledId = useRef(null) //  l’ajout 2 fois en StrictMode
+  const lastHandledId = useRef(null) 
 
   // Ajouter une tâche
   useEffect(() => {
-    if (incomingTask && incomingTask.id !== lastHandledId.current) {
+    if (newTask  && newTask .id !== lastHandledId.current) {
       setTasks(prev => {
         const nextId = prev.length ? Math.max(...prev.map(t => t.id)) + 1 : 1
         const t = {
           id: nextId,
-          title: incomingTask.title,
-          description: incomingTask.description,
-          status: incomingTask.status || 'todo',
+          title: newTask .title,
+          description: newTask .description,
+          status: newTask .status || 'todo',
         }
         return prev.concat(t)
       })
-      lastHandledId.current = incomingTask.id
+      lastHandledId.current = newTask .id
     }
-  }, [incomingTask])
+  }, [newTask])
+
+  // Modifier une tâche
+ useEffect(() => {
+    if (updatedTask) {
+      setTasks(prev =>
+        prev.map(t => {
+          if (t.id !== updatedTask.id) return t
+          return {
+            id: t.id,
+            title: updatedTask.title,
+            description: updatedTask.description,
+            status: updatedTask.status,
+          }
+        })
+      )
+    }
+  }, [updatedTask])
+
 
   // Supprimer une tâche
   const handleDelete = (id) => {

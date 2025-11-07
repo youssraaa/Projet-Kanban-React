@@ -20,9 +20,10 @@ function Column({ title, tasks = [], onDeleteTask, onMoveTask }) {
 
         return (
           <TaskCard
-            key={t.id}
+            id={t.id}
             title={t.title}
             description={t.description}
+            status={t.status}
             onDelete={() => onDeleteTask(t.id)}
             onMoveLeft={moveLeft}
             onMoveRight={moveRight}
