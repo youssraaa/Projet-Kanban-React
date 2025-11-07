@@ -15,39 +15,54 @@ function Board({ newTask, updatedTask }) {
   // Ajouter une tâche
   useEffect(() => {
     if (newTask  && newTask .id !== lastHandledId.current) {
-      setTasks(prev => {
-        const nextId = prev.length ? Math.max(...prev.map(t => t.id)) + 1 : 1
-        const t = {
-          id: nextId,
+      setTasks(prev => 
+        prev.concat({
+          id: newTask.id,
           title: newTask .title,
           description: newTask .description,
           status: newTask .status || 'todo',
           createdAt: newTask.createdAt,
-        }
-        return prev.concat(t)
-      })
+        })
+      )
       lastHandledId.current = newTask .id
     }
   }, [newTask])
 
   // Modifier une tâche
  useEffect(() => {
-    if (updatedTask) {
-      setTasks(prev =>
-        prev.map(t => {
-          if (t.id !== updatedTask.id) return t
-          return {
-            id: t.id,
-            title: updatedTask.title,
-            description: updatedTask.description,
-            status: updatedTask.status,
-            createdAt: t.createdAt,
-          }
-        })
-      )
-    }
-  }, [updatedTask])
+  if (updatedTask) {
+    setTasks(prev => {
+      let found = false
 
+      const updatedList = prev.map(t => {
+        if (t.id !== updatedTask.id) return t
+
+        found = true
+        return {
+          id: t.id,
+          title: updatedTask.title,
+          description: updatedTask.description,
+          status: updatedTask.status,
+          createdAt: t.createdAt, 
+        }
+      })
+
+      // Si la tâche n'existe pas encore (ex : créée puis modifiée aussitôt), on l'ajoute à la liste
+      if (!found) {
+        const now = new Date()
+        return updatedList.concat({
+          id: updatedTask.id,
+          title: updatedTask.title,
+          description: updatedTask.description,
+          status: updatedTask.status,
+          createdAt: now.toLocaleDateString('fr-FR'),
+        })
+      }
+
+      return updatedList
+    })
+  }
+}, [updatedTask])
 
   // Supprimer une tâche
   const handleDelete = (id) => {
@@ -73,7 +88,8 @@ function Board({ newTask, updatedTask }) {
        id: t.id,
        title: t.title,
        description: t.description,
-       status: newStatus
+       status: newStatus,
+       createdAt: t.createdAt,
       }
     }))
   }
