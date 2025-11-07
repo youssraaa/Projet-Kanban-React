@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import Column from './Column'
 
 const initialTasks  = [
-    { id: 1, title: 'Apprendre React', description: 'Découvrir les composants et les hooks.', status: 'todo' },
-    { id: 2, title: 'Faire le projet Kanban', description: 'Mettre en place les colonnes et le routage.', status: 'doing' },
-    { id: 3, title: 'Installer React', description: 'Projet initialisé avec Vite.', status: 'done' },
+    { id: 1, title: 'Apprendre React', description: 'Découvrir les composants et les hooks.', status: 'todo', createdAt: '20/02/2025', },
+    { id: 2, title: 'Faire le projet Kanban', description: 'Mettre en place les colonnes et le routage.', status: 'doing', createdAt: '22/10/2025', },
+    { id: 3, title: 'Installer React', description: 'Projet initialisé avec Vite.', status: 'done', createdAt: '28/10/2025', },
   ]
 
 function Board({ newTask, updatedTask }) {
@@ -22,6 +22,7 @@ function Board({ newTask, updatedTask }) {
           title: newTask .title,
           description: newTask .description,
           status: newTask .status || 'todo',
+          createdAt: newTask.createdAt,
         }
         return prev.concat(t)
       })
@@ -40,6 +41,7 @@ function Board({ newTask, updatedTask }) {
             title: updatedTask.title,
             description: updatedTask.description,
             status: updatedTask.status,
+            createdAt: t.createdAt,
           }
         })
       )

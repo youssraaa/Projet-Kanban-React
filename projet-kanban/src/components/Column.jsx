@@ -24,6 +24,7 @@ function Column({ title, tasks = [], onDeleteTask, onMoveTask }) {
             title={t.title}
             description={t.description}
             status={t.status}
+            createdAt={t.createdAt} 
             onDelete={() => onDeleteTask(t.id)}
             onMoveLeft={moveLeft}
             onMoveRight={moveRight}

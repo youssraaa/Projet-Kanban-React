@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 
-function TaskCard({ id, title, description, status, onDelete, onMoveLeft, onMoveRight }) {
+function TaskCard({ id, title, description, status, createdAt, onDelete, onMoveLeft, onMoveRight }) {
   const navigate = useNavigate()
 
   return (
@@ -8,6 +8,12 @@ function TaskCard({ id, title, description, status, onDelete, onMoveLeft, onMove
       <div className="card-body">
         <h5 className="card-title">{title}</h5>
         {description && <p className="card-text">{description}</p>}
+
+        {createdAt && (
+         <p className="text-muted mb-2" style={{ fontSize: '0.85rem' }}>
+          Créée le {createdAt}
+         </p>
+        )}
 
         <div className="d-flex justify-content-between">
           <div>

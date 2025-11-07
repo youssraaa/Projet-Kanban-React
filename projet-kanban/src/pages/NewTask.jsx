@@ -19,11 +19,13 @@ function NewTask() {
         initialValues={{ title: '', description: '', status: 'todo' }}
         validationSchema={schema}
         onSubmit={(values) => {
+          const now = new Date()
           const newTask = {
             id: Date.now(), // sert juste d'identifiant unique pour éviter le doublon (StrictMode)
             title: values.title,
             description: values.description,
             status: values.status,
+            createdAt: now.toLocaleDateString('fr-FR'),
           }
           navigate('/', { state: { newTask } })
         }}
