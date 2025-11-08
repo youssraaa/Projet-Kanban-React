@@ -10,6 +10,8 @@ const initialTasks  = [
 function Board({ newTask, updatedTask }) {
   
   const [tasks, setTasks] = useState(initialTasks) 
+  const [searchTerm, setSearchTerm] = useState('')        
+  const [statusFilter, setStatusFilter] = useState('all') 
   const lastHandledId = useRef(null) 
 
   // Ajouter une tâche
@@ -93,13 +95,49 @@ function Board({ newTask, updatedTask }) {
       }
     }))
   }
+  
+  // Filtrage par mot-clé + statut
+  const filteredTasks = tasks.filter(t => {
+    const keyword = searchTerm.toLowerCase()
+    const titleMatch = t.title.toLowerCase().includes(keyword)
+    const descMatch = (t.description || '').toLowerCase().includes(keyword)
 
-  const todo = tasks.filter(t => t.status === 'todo')
-  const doing = tasks.filter(t => t.status === 'doing')
-  const done  = tasks.filter(t => t.status === 'done')
+    const statusMatch =
+      statusFilter === 'all' ? true : t.status === statusFilter
+
+    return (titleMatch || descMatch) && statusMatch
+  })
+
+  const todo = filteredTasks.filter(t => t.status === 'todo')
+  const doing = filteredTasks.filter(t => t.status === 'doing')
+  const done  = filteredTasks.filter(t => t.status === 'done')
 
   return (
     <div className="container mt-4">
+      <div className="row mb-4">
+        <div className="col-md-8">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Rechercher une tâche..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+        <div className="col-md-4 mt-2 mt-md-0">
+          <select
+            className="form-select"
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+          >
+            <option value="all">Tous les statuts</option>
+            <option value="todo">À faire</option>
+            <option value="doing">En cours</option>
+            <option value="done">Terminé</option>
+          </select>
+        </div>
+      </div>
+
       <div className="row g-4">
         <Column title="À faire" tasks={todo} onDeleteTask={handleDelete} onMoveTask={handleMove} />
         <Column title="En cours" tasks={doing} onDeleteTask={handleDelete} onMoveTask={handleMove} />
