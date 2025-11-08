@@ -1,12 +1,12 @@
 import TaskCard from './TaskCard'
 
-function Column({ title, tasks = [], onDeleteTask, onMoveTask }) {
+function Column({ title, status, tasks = [], onDeleteTask, onMoveTask }) {
+
   return (
     <div className="col-md-4">
-      <h4 className="text-center mb-3">{title}</h4>
+      <h4 className={`column-title ${status}`}>{title}</h4>
 
       {tasks.map((t) => {
-
         let moveLeft = null
         let moveRight = null
 
@@ -20,6 +20,7 @@ function Column({ title, tasks = [], onDeleteTask, onMoveTask }) {
 
         return (
           <TaskCard
+            key={t.id}
             id={t.id}
             title={t.title}
             description={t.description}

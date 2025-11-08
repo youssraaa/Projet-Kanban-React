@@ -2,8 +2,8 @@ import Board from '../components/Board'
 
 function Home() {
   return (
-    <div>
-      <h2 className="mb-4">Tableau Kanban</h2>
+    <div className="main-container">
+      <h2 className="page-title">Tableau Kanban</h2>
       <Board />
     </div>
   )

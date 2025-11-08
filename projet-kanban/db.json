@@ -4,15 +4,22 @@
       "id": "2",
       "title": "Faire le projet Kanban et SCRUM",
       "description": "Mettre en place les colonnes et le routage. les hooks",
-      "status": "done",
+      "status": "doing",
       "createdAt": "22/10/2025"
     },
     {
       "id": "3",
       "title": "Installer React",
       "description": "Projet initialisé avec Vite.",
-      "status": "todo",
+      "status": "done",
       "createdAt": "28/10/2025"
+    },
+    {
+      "id": "5cbd",
+      "title": "Rendre la partie 2 du GLOP",
+      "description": "Projet fullstack ",
+      "status": "todo",
+      "createdAt": "08/11/2025"
     }
   ]
 }

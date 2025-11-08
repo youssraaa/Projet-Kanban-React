@@ -7,12 +7,12 @@ function TaskDetail() {
 
   if (!task) {
     return (
-      <div className="container">
+      <div className="container text-center mt-5">
         <h2 className="mb-3">Détail de la tâche</h2>
         <p className="text-danger">
-          Tâche introuvable (id : {id})
+          Tâche introuvable (id : {id}). 
         </p>
-        <Link to="/" className="btn btn-secondary">
+        <Link to="/" className="btn-back">
           Retour au tableau
         </Link>
       </div>
@@ -20,13 +20,14 @@ function TaskDetail() {
   }
 
   return (
-    <div className="container">
-      <h2 className="mb-3">Détail de la tâche</h2>
+    <div className="container text-center mt-5">
+      <h2 className="mb-4">Détail de la tâche</h2>
 
-      <div className="card">
-        <div className="card-body">
+        <div className={`task-detail-card status-${task.status}`}>
           <h3 className="card-title">{task.title}</h3>
-          {task.description && <p className="card-text">{task.description}</p>}
+          {task.description && (
+          <p className="card-text">{task.description}</p>
+          )}
 
           <p className="mb-1">
             <strong>Statut :</strong>{' '}
@@ -46,7 +47,6 @@ function TaskDetail() {
           </Link>
         </div>
       </div>
-    </div>
   )
 }
 

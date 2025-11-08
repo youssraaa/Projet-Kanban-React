@@ -91,7 +91,6 @@ function Board() {
       throw new Error('Erreur lors de la mise à jour du statut')
       }
 
-      // Si tout s'est bien passé côté serveur, on met à jour le state
       setTasks(prev =>
       prev.map(t => (t.id === id ? updatedTask : t))
       )
@@ -152,9 +151,9 @@ function Board() {
       </div>
 
       <div className="row g-4">
-        <Column title="À faire" tasks={todo} onDeleteTask={handleDelete} onMoveTask={handleMove} />
-        <Column title="En cours" tasks={doing} onDeleteTask={handleDelete} onMoveTask={handleMove} />
-        <Column title="Terminé" tasks={done} onDeleteTask={handleDelete} onMoveTask={handleMove} />
+        <Column title="À faire" status="todo" tasks={todo} onDeleteTask={handleDelete} onMoveTask={handleMove} />
+        <Column title="En cours" status="doing" tasks={doing} onDeleteTask={handleDelete} onMoveTask={handleMove} />
+        <Column title="Terminé" status="done" tasks={done} onDeleteTask={handleDelete} onMoveTask={handleMove} />
       </div>
     </div>
   )

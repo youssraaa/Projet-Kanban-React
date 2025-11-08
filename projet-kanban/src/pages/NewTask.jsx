@@ -14,8 +14,8 @@ function NewTask() {
   const navigate = useNavigate()
 
   return (
-    <div className="container">
-      <h2 className="mb-3">Nouvelle tâche</h2>
+     <div className="main-container">
+      <h2 className="page-title">Nouvelle tâche</h2>
 
       <Formik
         initialValues={{ title: '', description: '', status: 'todo' }}

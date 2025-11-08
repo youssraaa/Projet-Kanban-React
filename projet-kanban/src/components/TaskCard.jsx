@@ -4,38 +4,41 @@ function TaskCard({ id, title, description, status, createdAt, onDelete, onMoveL
   const navigate = useNavigate()
 
   return (
-    <div className="card mb-3">
+     <div className="card mb-3 kanban-card">
       <div className="card-body">
-        <h5 className="card-title">{title}</h5>
-        {description && <p className="card-text">{description}</p>}
+        <div className="d-flex justify-content-between align-items-center mb-2">
+        <h5 className="card-title mb-0 text-center w-100">{title}</h5>
+        </div>
+
+        {description && <p className="card-text text-center">{description}</p>}
 
         {createdAt && (
-         <p className="text-muted mb-2" style={{ fontSize: '0.85rem' }}>
-          Créée le {createdAt}
-         </p>
+          <p className="task-date text-center mb-3">
+            Créée le {createdAt}
+          </p>
         )}
 
         <div className="d-flex justify-content-between">
           <div>
             {onMoveLeft && (
-              <button className="btn btn-sm btn-outline-secondary me-1" onClick={onMoveLeft} title="Déplacer à gauche">
+              <button className="btn btn-move me-1" onClick={onMoveLeft} title="Déplacer à gauche">
                 <i className="bi bi-arrow-left"></i>
               </button>
             )}
             {onMoveRight && (
-              <button className="btn btn-sm btn-outline-secondary" onClick={onMoveRight} title="Déplacer à droite">
+              <button className="btn btn-move" onClick={onMoveRight} title="Déplacer à droite">
                 <i className="bi bi-arrow-right"></i>
               </button>
             )}
             <button
-              className="btn btn-sm btn-outline-info me-1"
+              className="btn btn-view me-1"
               onClick={() => navigate(`/task/${id}`, {state: { task: { id, title, description, status, createdAt } },})}
               title="Voir le détail"
             >
               <i className="bi bi-eye"></i>
             </button>
             <button
-              className="btn btn-sm btn-outline-warning me-1"
+              className="btn btn-edit me-1"
               onClick={() => navigate(`/edit/${id}`, { state: { task: { id, title, description, status, createdAt } } })}
               title="Modifier la tâche"
             >
@@ -43,7 +46,7 @@ function TaskCard({ id, title, description, status, createdAt, onDelete, onMoveL
             </button>      
           </div>
           {onDelete && (
-            <button className="btn btn-sm btn-outline-danger" onClick={onDelete} title="Supprimer la tâche">
+            <button className="btn btn-delete" onClick={onDelete} title="Supprimer la tâche">
               <i className="bi bi-x-lg"></i>
             </button>
           )}

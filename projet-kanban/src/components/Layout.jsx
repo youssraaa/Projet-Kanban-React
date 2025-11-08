@@ -3,7 +3,7 @@ import Navbar from './Navbar'
 
 function Layout() {
   return (
-    <div>
+    <div className="app-layout">
       <header>
         <Navbar />
       </header>
