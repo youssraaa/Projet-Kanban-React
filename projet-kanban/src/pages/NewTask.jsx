@@ -2,6 +2,8 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import { useNavigate } from 'react-router-dom'
 
+const TASKS_URL = 'http://localhost:3001/tasks'
+
 const schema = Yup.object({
   title: Yup.string().required('Titre obligatoire').min(3, 'Au moins 3 caractères'),
   description: Yup.string().max(200, '200 caractères max'),
@@ -18,16 +20,33 @@ function NewTask() {
       <Formik
         initialValues={{ title: '', description: '', status: 'todo' }}
         validationSchema={schema}
-        onSubmit={(values) => {
-          const now = new Date()
-          const newTask = {
-            id: Date.now(), // sert juste d'identifiant unique pour éviter le doublon (StrictMode)
+        onSubmit={async (values, { setSubmitting, resetForm }) => {
+          try {
+            const now = new Date()
+            const newTask = {
             title: values.title,
             description: values.description,
             status: values.status,
             createdAt: now.toLocaleDateString('fr-FR'),
           }
-          navigate('/', { state: { newTask } })
+           const response = await fetch(TASKS_URL, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(newTask),
+            })
+
+            if (!response.ok) {
+              throw new Error('Erreur lors de la création de la tâche')
+            }
+
+            resetForm()
+            navigate('/') // on retourne vers le tableau
+          } catch (err) {
+            console.error(err)
+            alert("Erreur lors de la création de la tâche")
+          } finally {
+            setSubmitting(false)
+          }
         }}
       >
           <Form>
