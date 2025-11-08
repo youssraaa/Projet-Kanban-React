@@ -2,6 +2,8 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 
+const TASKS_URL = 'http://localhost:3001/tasks'
+
 const schema = Yup.object({
   title: Yup.string()
     .required('Le titre est obligatoire')
@@ -33,14 +35,33 @@ function EditTask() {
           status: taskToEdit.status,   
         }}
         validationSchema={schema}
-        onSubmit={(values) => {
-          const updatedTask = {
-            id: taskToEdit.id,
-            title: values.title,
-            description: values.description,
-            status: values.status,
+        onSubmit={async (values, { setSubmitting }) => {
+          try {
+            const updatedTask = {
+              id: taskToEdit.id,
+              title: values.title,
+              description: values.description,
+              status: values.status,
+              createdAt: taskToEdit.createdAt,
+            }
+
+            const response = await fetch(`${TASKS_URL}/${taskToEdit.id}`, {
+              method: 'PUT',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(updatedTask),
+            })
+
+            if (!response.ok) {
+              throw new Error('Erreur lors de la mise à jour de la tâche')
+            }
+
+            navigate('/') 
+          } catch (err) {
+            console.error(err)
+            alert('Erreur lors de la mise à jour de la tâche')
+          } finally {
+            setSubmitting(false)
           }
-          navigate('/', { state: { updatedTask } })
         }}
       >
         <Form>

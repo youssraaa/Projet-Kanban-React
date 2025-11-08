@@ -1,18 +1,16 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Column from './Column'
 
 const TASKS_URL = 'http://localhost:3001/tasks'
 
-function Board({ newTask, updatedTask }) {
-  
+function Board() {
+
   const [tasks, setTasks] = useState([]) 
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
   const [searchTerm, setSearchTerm] = useState('')        
   const [statusFilter, setStatusFilter] = useState('all') 
-
-  const lastHandledId = useRef(null) 
 
   // Charger les tâches depuis le serveur (GET /tasks)
   async function loadTasks() {
@@ -37,58 +35,6 @@ function Board({ newTask, updatedTask }) {
   useEffect(() => {
     loadTasks()
   }, [])
-
-  // Ajouter une tâche
-  useEffect(() => {
-    if (newTask  && newTask .id !== lastHandledId.current) {
-      setTasks(prev => 
-        prev.concat({
-          id: newTask.id,
-          title: newTask .title,
-          description: newTask .description,
-          status: newTask .status || 'todo',
-          createdAt: newTask.createdAt,
-        })
-      )
-      lastHandledId.current = newTask .id
-    }
-  }, [newTask])
-
-  // Modifier une tâche
- useEffect(() => {
-  if (updatedTask) {
-    setTasks(prev => {
-      let found = false
-
-      const updatedList = prev.map(t => {
-        if (t.id !== updatedTask.id) return t
-
-        found = true
-        return {
-          id: t.id,
-          title: updatedTask.title,
-          description: updatedTask.description,
-          status: updatedTask.status,
-          createdAt: t.createdAt, 
-        }
-      })
-
-      // Si la tâche n'existe pas encore (ex : créée puis modifiée aussitôt), on l'ajoute à la liste
-      if (!found) {
-        const now = new Date()
-        return updatedList.concat({
-          id: updatedTask.id,
-          title: updatedTask.title,
-          description: updatedTask.description,
-          status: updatedTask.status,
-          createdAt: now.toLocaleDateString('fr-FR'),
-        })
-      }
-
-      return updatedList
-    })
-  }
-}, [updatedTask])
 
   // Supprimer une tâche
   const handleDelete = (id) => {
@@ -135,6 +81,14 @@ function Board({ newTask, updatedTask }) {
   const todo = filteredTasks.filter(t => t.status === 'todo')
   const doing = filteredTasks.filter(t => t.status === 'doing')
   const done  = filteredTasks.filter(t => t.status === 'done')
+  
+  if (loading) {
+  return <p className="m-3">Chargement des tâches...</p>
+  }
+
+  if (error) {
+  return <p className="m-3 text-danger">Erreur : {error}</p>
+  }
 
   return (
     <div className="container mt-4">

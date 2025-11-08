@@ -36,7 +36,7 @@ function TaskCard({ id, title, description, status, createdAt, onDelete, onMoveL
             </button>
             <button
               className="btn btn-sm btn-outline-warning me-1"
-              onClick={() => navigate(`/edit/${id}`, { state: { task: { id, title, description, status } } })}
+              onClick={() => navigate(`/edit/${id}`, { state: { task: { id, title, description, status, createdAt } } })}
               title="Modifier la tâche"
             >
               <i className="bi bi-pencil-square"></i>
