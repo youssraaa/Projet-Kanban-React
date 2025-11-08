@@ -1,0 +1,25 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Apprendre React",
+      "description": "Découvrir les composants et les hooks.",
+      "status": "todo",
+      "createdAt": "20/02/2025"
+    },
+    {
+      "id": 2,
+      "title": "Faire le projet Kanban",
+      "description": "Mettre en place les colonnes et le routage.",
+      "status": "doing",
+      "createdAt": "22/10/2025"
+    },
+    {
+      "id": 3,
+      "title": "Installer React",
+      "description": "Projet initialisé avec Vite.",
+      "status": "done",
+      "createdAt": "28/10/2025"
+    }
+  ]
+}

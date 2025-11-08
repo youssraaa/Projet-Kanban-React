@@ -1,18 +1,42 @@
 import { useEffect, useRef, useState } from 'react'
 import Column from './Column'
 
-const initialTasks  = [
-    { id: 1, title: 'Apprendre React', description: 'Découvrir les composants et les hooks.', status: 'todo', createdAt: '20/02/2025', },
-    { id: 2, title: 'Faire le projet Kanban', description: 'Mettre en place les colonnes et le routage.', status: 'doing', createdAt: '22/10/2025', },
-    { id: 3, title: 'Installer React', description: 'Projet initialisé avec Vite.', status: 'done', createdAt: '28/10/2025', },
-  ]
+const TASKS_URL = 'http://localhost:3001/tasks'
 
 function Board({ newTask, updatedTask }) {
   
-  const [tasks, setTasks] = useState(initialTasks) 
+  const [tasks, setTasks] = useState([]) 
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+
   const [searchTerm, setSearchTerm] = useState('')        
   const [statusFilter, setStatusFilter] = useState('all') 
+
   const lastHandledId = useRef(null) 
+
+  // Charger les tâches depuis le serveur (GET /tasks)
+  async function loadTasks() {
+    try {
+      setLoading(true)
+      setError(null)
+
+      const response = await fetch(TASKS_URL)
+      if (!response.ok) {
+        throw new Error('Erreur réseau lors du chargement des tâches')
+      }
+
+      const data = await response.json()
+      setTasks(data)
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    loadTasks()
+  }, [])
 
   // Ajouter une tâche
   useEffect(() => {
