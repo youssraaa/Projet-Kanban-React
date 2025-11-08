@@ -4,14 +4,14 @@
       "id": "2",
       "title": "Faire le projet Kanban et SCRUM",
       "description": "Mettre en place les colonnes et le routage. les hooks",
-      "status": "todo",
+      "status": "done",
       "createdAt": "22/10/2025"
     },
     {
       "id": "3",
       "title": "Installer React",
       "description": "Projet initialisé avec Vite.",
-      "status": "done",
+      "status": "todo",
       "createdAt": "28/10/2025"
     }
   ]

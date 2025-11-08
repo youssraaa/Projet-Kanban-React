@@ -56,32 +56,53 @@ function Board() {
   }
 
   // Déplacer une tâche
-  const handleMove = (id, direction) => {
-    setTasks(tasks.map(t => {
-      if (t.id !== id) return t
+  const handleMove = async (id, direction) => {
+    const task = tasks.find(t => t.id === id)
+    if (!task) return
 
-      let newStatus = t.status
+      let newStatus = task.status
 
       // Vers la gauche
-      if (direction === -1 && t.status === 'doing') newStatus = 'todo'
-      if (direction === -1 && t.status === 'done') newStatus = 'doing'
+      if (direction === -1 && task.status === 'doing') newStatus = 'todo'
+      if (direction === -1 && task.status === 'done') newStatus = 'doing'
 
       // Vers la droite
-      if (direction === 1 && t.status === 'todo') newStatus = 'doing'
-      if (direction === 1 && t.status === 'doing') newStatus = 'done'
+      if (direction === 1 && task.status === 'todo') newStatus = 'doing'
+      if (direction === 1 && task.status === 'doing') newStatus = 'done'
 
-     return {
-       id: t.id,
-       title: t.title,
-       description: t.description,
+      if (newStatus === task.status) return
+
+      const updatedTask = {
+       id: task.id,
+       title: task.title,
+       description: task.description,
        status: newStatus,
-       createdAt: t.createdAt,
+       createdAt: task.createdAt,
+      }  
+      
+      try {
+      const response = await fetch(`${TASKS_URL}/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(updatedTask),
+      })
+
+      if (!response.ok) {
+      throw new Error('Erreur lors de la mise à jour du statut')
       }
-    }))
-  }
-  
+
+      // Si tout s'est bien passé côté serveur, on met à jour le state
+      setTasks(prev =>
+      prev.map(t => (t.id === id ? updatedTask : t))
+      )
+      } catch (err) {
+       console.error(err)
+       alert('Erreur lors du déplacement de la tâche')
+      }
+    }
+      
   // Filtrage par mot-clé + statut
-  const filteredTasks = tasks.filter(t => {
+    const filteredTasks = tasks.filter(t => {
     const keyword = searchTerm.toLowerCase()
     const titleMatch = t.title.toLowerCase().includes(keyword)
     const descMatch = (t.description || '').toLowerCase().includes(keyword)
