@@ -1,13 +1,6 @@
 {
   "tasks": [
     {
-      "id": "1",
-      "title": "Apprendre React ",
-      "description": "Découvrir les composants et les hooks.",
-      "status": "todo",
-      "createdAt": "20/02/2025"
-    },
-    {
       "id": "2",
       "title": "Faire le projet Kanban et SCRUM",
       "description": "Mettre en place les colonnes et le routage. les hooks",
@@ -20,34 +13,6 @@
       "description": "Projet initialisé avec Vite.",
       "status": "done",
       "createdAt": "28/10/2025"
-    },
-    {
-      "id": "71a7",
-      "title": "CG Master",
-      "description": "Fiancier",
-      "status": "todo",
-      "createdAt": "08/11/2025"
-    },
-    {
-      "id": "8c94",
-      "title": "ARI",
-      "description": "TP erzachch",
-      "status": "doing",
-      "createdAt": "08/11/2025"
-    },
-    {
-      "id": "549c",
-      "title": "bbbbb",
-      "description": "bbbbbbb",
-      "status": "done",
-      "createdAt": "08/11/2025"
-    },
-    {
-      "id": "e61c",
-      "title": "ALOM",
-      "description": "Tp 2",
-      "status": "doing",
-      "createdAt": "08/11/2025"
     }
   ]
 }

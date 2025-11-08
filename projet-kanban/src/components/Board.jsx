@@ -36,9 +36,23 @@ function Board() {
     loadTasks()
   }, [])
 
-  // Supprimer une tâche
-  const handleDelete = (id) => {
-    setTasks(tasks.filter(t => t.id !== id))
+  // Supprimer une tâche (DELETE /tasks/:id)
+  const handleDelete = async (id) => {
+  try {
+    const response = await fetch(`${TASKS_URL}/${id}`, {
+      method: 'DELETE',
+    })
+
+    if (!response.ok) {
+      throw new Error('Erreur lors de la suppression de la tâche')
+    }
+
+    // Si la suppression côté serveur a réussi, on met à jour l'état local
+    setTasks(prev => prev.filter(t => t.id !== id))
+  } catch (err) {
+    console.error(err)
+    alert('Erreur lors de la suppression de la tâche')
+    }
   }
 
   // Déplacer une tâche
