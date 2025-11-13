@@ -1,25 +1,46 @@
 {
   "tasks": [
     {
+      "id": "1",
+      "title": "Préparer la documentation du projet Kanban ARI1",
+      "description": "Rédiger le résumé du projet et l’architecture.",
+      "status": "todo",
+      "createdAt": "22/10/2025"
+    },
+    {
       "id": "2",
-      "title": "Faire le projet Kanban et SCRUM",
-      "description": "Mettre en place les colonnes et le routage. les hooks",
-      "status": "doing",
+      "title": "Concevoir le schéma logique de la base RH",
+      "description": "Créer le MCD et MLD avec contraintes.",
+      "status": "todo",
       "createdAt": "22/10/2025"
     },
     {
       "id": "3",
-      "title": "Installer React",
-      "description": "Projet initialisé avec Vite.",
-      "status": "done",
-      "createdAt": "28/10/2025"
+      "title": "Implémenter le formulaire de création",
+      "description": "Développer le formulaire Formik + Yup.",
+      "status": "doing",
+      "createdAt": "22/10/2025"
     },
     {
-      "id": "5cbd",
-      "title": "Rendre la partie 2 du GLOP",
-      "description": "Projet fullstack ",
-      "status": "todo",
-      "createdAt": "08/11/2025"
+      "id": "4",
+      "title": "Créer le service Fetch pour les tâches",
+      "description": "Ajouter GET, POST, PUT, DELETE.",
+      "status": "doing",
+      "createdAt": "22/10/2025"
+    },
+    {
+      "id": "5",
+      "title": "Mettre en place le routage",
+      "description": "Installer React Router et la Navbar.",
+      "status": "done",
+      "createdAt": "22/10/2025"
+    },
+    {
+      "id": "6",
+      "title": "Construire la base de données initiale",
+      "description": "Créer tables et données de test.",
+      "status": "done",
+      "createdAt": "22/10/2025"
     }
   ]
 }
