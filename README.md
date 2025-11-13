@@ -1,93 +1,71 @@
-# ARI1_Dahouane_Youssra_Projet
+# Projet Kanban – ARI 1  
 
+Dahouane Youssra
+Master 2 MIAGE – Université de Lille  
+Encadrant : Cédric Dumoulin
 
+## Description du projet
 
-## Getting started
+Cette application est un tableau Kanban interactif développé en React.  Elle permet de gérer des tâches et de visualiser leur avancement dans trois colonnes : À faire, En cours, Terminé.  Chaque tâche possède un titre, une description, un statut et une date de création.  L’utilisateur peut créer, modifier, supprimer et déplacer une tâche comme dans un outil de gestion agile.
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+## Installation et lancement
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
-
+### Cloner le projet
 ```
-cd existing_repo
-git remote add origin https://gitlab.univ-lille.fr/youssra.dahouane.etu/ari1_dahouane_youssra_projet.git
-git branch -M main
-git push -uf origin main
+git clone https://gitlab.univ-lille.fr/youssra.dahouane.etu/ari1_dahouane_youssra_projet.git
+cd ari1_dahouane_youssra_projet
 ```
+### Installer les dépendances
 
-## Integrate with your tools
+Ce projet utilise React, React Router, Formik, Yup, Bootstrap, Bootstrap Icons et JSON-Server.  
+Installer toutes les dépendances avec :
+```
+npm install
+```
+### Lancer le faux serveur JSON (backend)
+```
+npm run json-server
+```
+L’API sera disponible ici : http://localhost:3001/tasks
 
-- [ ] [Set up project integrations](https://gitlab.univ-lille.fr/youssra.dahouane.etu/ari1_dahouane_youssra_projet/-/settings/integrations)
+### Lancer l’application React (frontend)
+Dans un nouvel onglet du terminal :
+```
+npm run dev
+```
+L’application sera accessible ici : http://localhost:5173
 
-## Collaborate with your team
+## Fonctionnalités implémentées
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+- Afficher toutes les tâches depuis le serveur (*GET /tasks*)
+- Créer une tâche (*POST /tasks*)
+- Modifier une tâche (*PUT /tasks/:id*)
+- Supprimer une tâche (*DELETE /tasks/:id*)
+- Déplacer une tâche entre les colonnes (mise à jour du statut)
+- Rechercher une tâche par mot-clé
+- Filtrer les tâches par statut
+- Navigation entre les pages avec *React Router*
+- Design responsive et pastel avec *Bootstrap*
 
-## Test and Deploy
+## Démarche de développement
 
-Use the built-in continuous integration in GitLab.
+- J’ai d’abord développé l’application en local, avec une liste de tâches stockée dans Board.jsx afin de tester toute la logique : création, modification, suppression et déplacement entre colonnes.  
+- Ensuite, j’ai intégré progressivement json-server pour rendre les tâches persistantes, en remplaçant chaque action locale par un appel API (GET, POST, PUT, DELETE).  
+- Enfin, j’ai vérifié la navigation et testé chaque fonctionnalité en contrôlant régulièrement que le fichier db.json se mettait bien à jour.  
+- Toutes les étapes ont été commit avec des messages clairs.
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+## Problèmes rencontrés et solutions
 
-***
+### Avant la communication avec le serveur
+- *Duplication des tâches en React StrictMode*  
+  Résolu avec un useRef pour empêcher un double ajout.
 
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+### Après l’intégration du serveur (json-server)
+- *La modification ne mettait pas à jour db.json*  
+  Corrigé en envoyant un objet complet avec PUT /tasks/:id.
+- *Le déplacement d’une tâche n’était pas sauvegardé dans le serveur*  
+  Ajout d’un appel PUT dans handleMove() pour enregistrer le nouveau statut.
+- *La suppression fonctionnait localement mais pas dans le serveur*  
+   Résolu avec DELETE /tasks/:id + mise à jour locale.
+- *La mise en page n’était pas uniforme entre les pages*  
+  Fixée en ajoutant .main-container pour une largeur cohérente
