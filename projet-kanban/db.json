@@ -11,28 +11,28 @@
       "id": "2",
       "title": "Concevoir le schéma logique de la base RH",
       "description": "Créer le MCD et MLD avec contraintes.",
-      "status": "todo",
+      "status": "doing",
       "createdAt": "22/10/2025"
     },
     {
       "id": "3",
       "title": "Implémenter le formulaire de création",
       "description": "Développer le formulaire Formik + Yup.",
-      "status": "doing",
+      "status": "done",
       "createdAt": "22/10/2025"
     },
     {
       "id": "4",
       "title": "Créer le service Fetch pour les tâches",
       "description": "Ajouter GET, POST, PUT, DELETE.",
-      "status": "doing",
+      "status": "todo",
       "createdAt": "22/10/2025"
     },
     {
       "id": "5",
-      "title": "Mettre en place le routage",
+      "title": "Construire le routage",
       "description": "Installer React Router et la Navbar.",
-      "status": "done",
+      "status": "doing",
       "createdAt": "22/10/2025"
     },
     {

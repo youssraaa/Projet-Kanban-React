@@ -69,3 +69,8 @@ L’application sera accessible ici : http://localhost:5173
    Résolu avec DELETE /tasks/:id + mise à jour locale.
 - *La mise en page n’était pas uniforme entre les pages*  
   Fixée en ajoutant .main-container pour une largeur cohérente
+
+## Démonstration vidéo
+
+Une démonstration complète du fonctionnement de l’application est disponible ici :
+https://gitlab.univ-lille.fr/youssra.dahouane.etu/ari1_dahouane_youssra_projet/-/raw/main/Demo_Kanban.mp4?ref_type=heads
