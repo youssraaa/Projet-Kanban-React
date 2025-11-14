@@ -1,6 +1,6 @@
 # Projet Kanban – ARI 1  
 
-Dahouane Youssra
+Dahouane Youssra  
 Master 2 MIAGE – Université de Lille  
 Encadrant : Cédric Dumoulin
 
